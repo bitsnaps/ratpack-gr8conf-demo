@@ -2,6 +2,8 @@ import app.FakeRemoteProductService
 import app.Product
 import app.ProductHandler
 import app.ProductService
+import app.RecommendationsHandler
+
 import static ratpack.jackson.Jackson.json
 
 import static ratpack.groovy.Groovy.ratpack
@@ -15,8 +17,9 @@ ratpack {
 
   bindings {
     // instruct Guice for DI (like: whenever I try to inject ProductService do inject FakeRemoteProductService
-    bind ProductHandler
-    bind ProductService, FakeRemoteProductService
+    bind(ProductHandler)
+    bind(RecommendationsHandler)
+    bind(ProductService, FakeRemoteProductService)
   }
 
   handlers {
@@ -32,7 +35,9 @@ ratpack {
      }
     }
 */
-   get('products/:id', ProductHandler)
+   get 'products/:id', ProductHandler
+
+   get 'recommendations', RecommendationsHandler
 
 //    files { dir "public" }
   }
