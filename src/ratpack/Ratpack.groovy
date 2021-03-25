@@ -1,5 +1,6 @@
 import app.FakeRemoteProductService
 import app.Product
+import app.ProductHandler
 import app.ProductService
 import static ratpack.jackson.Jackson.json
 
@@ -14,7 +15,8 @@ ratpack {
 
   bindings {
     // instruct Guice for DI (like: whenever I try to inject ProductService do inject FakeRemoteProductService
-    bind(ProductService, FakeRemoteProductService)
+    bind ProductHandler
+    bind ProductService, FakeRemoteProductService
   }
 
   handlers {
@@ -30,14 +32,7 @@ ratpack {
      }
     }
 */
-   get('products/:id') { ProductService productService ->
-     productService.findProductById(pathTokens.id).onNull({
-       response.status(404)
-       render([message:'Not found'])
-     }).then({ Product product ->
-       render(json(product))
-     })
-    }
+   get('products/:id', ProductHandler)
 
 //    files { dir "public" }
   }
