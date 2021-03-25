@@ -1,6 +1,8 @@
 package app
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
+import io.github.resilience4j.ratpack.circuitbreaker.CircuitBreakerTransformer
 import ratpack.exec.Promise
 import ratpack.exec.util.ParallelBatch
 import ratpack.exec.util.SerialBatch
@@ -25,11 +27,13 @@ class RecommendationsHandler implements Handler {
 
     private final HttpClient http
     private final ObjectMapper mapper
+    private final CircuitBreakerRegistry registry
 
     @Inject
-    RecommendationsHandler(HttpClient http, ObjectMapper mapper) {
+    RecommendationsHandler(HttpClient http, ObjectMapper mapper, CircuitBreakerRegistry registry) {
         this.http = http
         this.mapper = mapper
+        this.registry = registry
     }
 
     @Override
@@ -51,7 +55,12 @@ class RecommendationsHandler implements Handler {
                 { def response -> response.status.is2xx() },
                 { def response -> mapper.readValue(response.body.inputStream, Product) },
                 { _ -> null}
-        ).onError { def error ->
+
+        ).transform(
+            // Transform existing promise to some another promise
+            CircuitBreakerTransformer.of(registry.circuitBreaker(id))
+        )
+                .onError { def error ->
             println(error.message)
         }
     }

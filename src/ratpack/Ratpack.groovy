@@ -3,6 +3,7 @@ import app.Product
 import app.ProductHandler
 import app.ProductService
 import app.RecommendationsHandler
+import io.github.resilience4j.ratpack.Resilience4jModule
 
 import static ratpack.jackson.Jackson.json
 
@@ -20,6 +21,7 @@ ratpack {
     bind(ProductHandler)
     bind(RecommendationsHandler)
     bind(ProductService, FakeRemoteProductService)
+    module(Resilience4jModule)
   }
 
   handlers {
