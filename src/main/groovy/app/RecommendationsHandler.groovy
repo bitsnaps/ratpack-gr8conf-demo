@@ -37,7 +37,8 @@ class RecommendationsHandler implements Handler {
         def promises = IDS.collect { id -> prepareHttpConnection(id) }
 //      We use ParallelBatch which is much faster than SerialBatch for parallel request handling
         ParallelBatch.of(promises)
-            .yield()
+//            .yield()
+            .publisher().toList() // filter all NULLs
             .then({ def products ->
                 ctx.render(json( products ))
             })
