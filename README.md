@@ -48,3 +48,16 @@ That's it! You can start the basic app with
     ./gradlew run
 
 but it's up to you to add the bells, whistles, and meat of the application.
+
+### Multiple Request Handeling
+
+You can benchmark this app using Apache Benchmark tool (ab)
+    
+    ab -c 3 -n 10 http://localhost:5050/products/PR-001
+
+This will perform 10 requests.
+
+You can use `siege` tool as following:
+
+    siege -c 10 -r 1 http://localhost:5050/products/PR-001
+
