@@ -19,6 +19,7 @@ ratpack {
 
   handlers {
 
+/*/ Blocking request GET handler
    get('products/:id') { ProductService productService ->
      final Product product = productService.findProductById(pathTokens.id)
      if (product){
@@ -27,7 +28,15 @@ ratpack {
        response.status(404)
        render json([message: 'Not found'])
      }
-
+    }
+*/
+   get('products/:id') { ProductService productService ->
+     productService.findProductById(pathTokens.id).onNull({
+       response.status(404)
+       render([message:'Not found'])
+     }).then({ Product product ->
+       render(json(product))
+     })
     }
 
 //    files { dir "public" }

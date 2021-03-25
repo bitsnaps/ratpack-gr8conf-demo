@@ -1,5 +1,8 @@
 package app
 
+import ratpack.exec.Blocking
+import ratpack.exec.Promise
+
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Supplier
 
@@ -21,7 +24,9 @@ class FakeRemoteProductService implements ProductService {
     }
 
     @Override
-    Product findProductById(String id) {
-        return products.getOrDefault(id, {} as Supplier).get()
+    Promise<Product> findProductById(String id) {
+        return Blocking.get({
+            products.getOrDefault(id, {} as Supplier).get()
+        })
     }
 }

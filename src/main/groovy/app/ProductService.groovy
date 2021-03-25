@@ -1,7 +1,9 @@
 package app
 
+import ratpack.exec.Promise
+
 interface ProductService {
 
-    Product findProductById(String id)
+    Promise<Product> findProductById(String id)
 
 }
