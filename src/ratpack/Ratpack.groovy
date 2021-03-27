@@ -41,6 +41,9 @@ ratpack {
 
    get 'recommendations', RecommendationsHandler
 
+    get {
+      render('Hello Ratpack!')
+    }
 //    files { dir "public" }
   }
 }
