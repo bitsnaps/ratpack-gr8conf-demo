@@ -1,11 +1,8 @@
 import app.FakeRemoteProductService
-import app.Product
 import app.ProductHandler
 import app.ProductService
 import app.RecommendationsHandler
 import io.github.resilience4j.ratpack.Resilience4jModule
-
-import static ratpack.jackson.Jackson.json
 
 import static ratpack.groovy.Groovy.ratpack
 

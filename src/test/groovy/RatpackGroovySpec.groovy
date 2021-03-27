@@ -1,10 +1,6 @@
-import ratpack.groovy.Groovy
-import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest;
 import ratpack.test.http.TestHttpClient;
 import ratpack.test.ServerBackedApplicationUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import ratpack.test.MainClassApplicationUnderTest
 
 class RatpackGroovySpec {

@@ -5,12 +5,9 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry
 import io.github.resilience4j.ratpack.circuitbreaker.CircuitBreakerTransformer
 import ratpack.exec.Promise
 import ratpack.exec.util.ParallelBatch
-import ratpack.exec.util.SerialBatch
 import ratpack.handling.Context
 import ratpack.handling.Handler
 import ratpack.http.client.HttpClient
-import ratpack.http.client.ReceivedResponse
-
 import javax.inject.Inject
 import java.time.Duration
 
